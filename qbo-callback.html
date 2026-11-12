@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<title>PSS Ledger sign-in</title>
+<style>body{font-family:system-ui,sans-serif;max-width:640px;margin:40px auto;padding:0 16px;line-height:1.55}</style>
+</head>
+<body>
+<h1>Returning to PSS Ledger&hellip;</h1>
+<p>This page hands QuickBooks' answer back to the PSS Ledger engine running on this computer.
+It stores nothing and sends nothing anywhere else.</p>
+<p id="manual" hidden>If nothing happens, make sure the engine's <code>connect</code> command is
+still waiting, then <a id="go" href="#">continue here</a>.</p>
+<script>
+  // Intuit's production keys refuse a localhost redirect, so this https page relays the
+  // browser to the engine's loopback listener (engine/qbo/connect.py RELAY_LOOPBACK).
+  (function () {
+    var target = "http://localhost:8765/callback" + window.location.search;
+    document.getElementById("go").href = target;
+    document.getElementById("manual").hidden = false;
+    if (window.location.search) { window.location.replace(target); }
+  })();
+</script>
+</body>
+</html>
